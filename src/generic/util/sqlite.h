@@ -355,6 +355,7 @@ namespace aptitude
 	  return parent.step();
 	}
       };
+      statement(db &_parent, sqlite3_stmt *_handle);
 
     private:
       db &parent;
@@ -371,7 +372,6 @@ namespace aptitude
       friend class db;
       friend class db::statement_proxy_impl;
 
-      statement(db &_parent, sqlite3_stmt *_handle);
       template<typename A, typename B, typename C>
       friend boost::shared_ptr<A> boost::make_shared(const B &, const C &);
 
@@ -564,7 +564,6 @@ namespace aptitude
 
       friend class db;
 
-      blob(db &_parent, sqlite3_blob *_handle);
       template<typename A, typename B, typename C>
       friend boost::shared_ptr<A> boost::make_shared(const B &, const C &);
 
@@ -581,6 +580,8 @@ namespace aptitude
        *                      read-only; otherwise it will be opened
        *                      read-write.
        */
+      blob(db &_parent, sqlite3_blob *_handle);
+
       static boost::shared_ptr<blob>
       open(db &parent,
 	   const std::string &databaseName,
